@@ -11,3 +11,18 @@ The depth-first search algorithm of maze generation is frequently implemented us
         which is invoked once for any initial cell in the area.
 
 
+
+
+
+
+
+
+
+
+
+
+Future Updates:
+
+1. Animation for a moving sprite while exploring the maze.
+2. Possible other items to be found before exiting. 
+3. Timer and scorecount (including how many blocks away from exit by the time the countdown ends)
