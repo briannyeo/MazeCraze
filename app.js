@@ -21,11 +21,12 @@ function setup() {
             grid.push(cell)
         }
     }
-    current = grid[2]; //decides the where the algo will start  
+    current = grid[0]; //decides the where the algo will start  
 }
 
 function draw() {
     //set first cell as visited
+    maze.style.background = 'white';
     current.visited = true; 
     
     //loop through the grid array and show each cell 
@@ -33,20 +34,22 @@ function draw() {
         grid[i].show();
 
         let next = current.checkNeighbors();
-        console.log(current.checkNeighbors())
+        
         if (next !== undefined) {
             next.visited = true;
-            current = next;
+            
+            current.removeWalls(current, next);
+            current = next; //step 4
                
         } //else if -> implement backtracker algo
-        
+            
         current.show(); //if cell has been visited, change the color
-    }
-
+    }       
     
-   
-      
+     
 }
+
+
 
 
 function index(x, y) { //arranges every single cell to go from left to right per row
@@ -107,9 +110,7 @@ class Cell {
         }
     };
 
-    // removeWall (cell1, cell2) {
-    //     let x = cell1.colNum - cell2.colNum
-    // }
+  
 
     //draw each cell on maze
     show() {
@@ -121,6 +122,7 @@ class Cell {
             ctx.moveTo(x, y);
             ctx.lineTo(x + w, y);
             ctx.stroke();
+
         }
 
         if (this.walls[1]) {
@@ -128,6 +130,8 @@ class Cell {
             ctx.moveTo(x + w, y);
             ctx.lineTo(x + w, y + w);
             ctx.stroke();
+
+            
         };
 
         if (this.walls[2]) {
@@ -135,6 +139,8 @@ class Cell {
             ctx.moveTo(x + w, y + w);
             ctx.lineTo(x, y + w);
             ctx.stroke();
+
+            
         }
 
         if (this.walls[3]) {
@@ -142,6 +148,8 @@ class Cell {
             ctx.moveTo(x, y + w);
             ctx.lineTo(x, y);
             ctx.stroke();
+
+            
         }
 
         if (this.visited) {
@@ -151,13 +159,35 @@ class Cell {
             //ctx.fillRect(x, y, w - 3, w - 3);
             //ctx.fillRect(x + 1 , y+1 , w-1 , w-1);
             //ctx.fillRect(x + 2 , y+2 , w-1 , w-1);
-
+            
         }
-    }
-    
+    }   
 
+    removeWalls(cell1, cell2) {
+        
+        let x = cell1.colNum - cell2.colNum //compare to see if left or right of current cell. 
+        if (x === 1) {
+            cell1.walls[3] = false;
+            cell2.walls[1] = false;
+          } else if (x === -1) {
+            cell1.walls[1] = false;
+            cell2.walls[3] = false;
+          }
+
+        let y = cell1.rowNum - cell2.rowNum;    
+        console.log(y)
+        if (y === 1) {
+            cell1.walls[0] = false;
+            cell2.walls[2] = false;
+          } else if (y === -1) {
+            cell1.walls[2] = false;
+            cell2.walls[0] = false;
+          }
+    }
 
 }
+
+
 
 setup();
 draw(); 
