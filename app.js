@@ -21,8 +21,7 @@ function setup() {
             grid.push(cell)
         }
     }
-    current = grid[5];
-   
+    current = grid[2]; //decides the where the algo will start  
 }
 
 function draw() {
@@ -32,20 +31,23 @@ function draw() {
     //loop through the grid array and show each cell 
     for (let i = 0; i < grid.length; i++) {
         grid[i].show();
+
+        let next = current.checkNeighbors();
+        console.log(current.checkNeighbors())
+        if (next !== undefined) {
+            next.visited = true;
+            current = next;
+               
+        } //else if -> implement backtracker algo
+        
+        current.show(); //if cell has been visited, change the color
     }
-    
-    let next = current.checkNeighbors();
 
-    if (next !== undefined) {
-        next.visited = true;
-        current = next;
-           
-    } //else if -> backtracker
     
-    
-    current.show(); //if cell has been visited, change the color
-
+   
+      
 }
+
 
 function index(x, y) { //arranges every single cell to go from left to right per row
     if (x < 0 || y < 0 || x > cols - 1 || y > rows - 1) {
@@ -66,6 +68,7 @@ class Cell {
 
     checkNeighbors() {
         let neighbors = [];
+        
         
         let col = this.colNum;
         let row = this.rowNum;
@@ -108,13 +111,10 @@ class Cell {
     //     let x = cell1.colNum - cell2.colNum
     // }
 
+    //draw each cell on maze
     show() {
         let x = this.colNum * w; //x-coordinate is at the colNum scaled by width of each cell
-        let y = this.rowNum * w;
-        
-        // ctx.beginPath();
-        // ctx.rect(x, y, w, w);
-        // ctx.stroke();
+        let y = this.rowNum * w;        
 
         if (this.walls[0]) {
             ctx.beginPath(); //draw top line
@@ -148,6 +148,7 @@ class Cell {
             //ctx.rect(x,y,w,w);
             ctx.fillStyle = 'green'
             ctx.fillRect(x + 1, y + 1, w - 2, w - 2);
+            //ctx.fillRect(x, y, w - 3, w - 3);
             //ctx.fillRect(x + 1 , y+1 , w-1 , w-1);
             //ctx.fillRect(x + 2 , y+2 , w-1 , w-1);
 
