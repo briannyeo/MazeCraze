@@ -17,41 +17,39 @@ function setup() {
 
     for (let x = 0; x < rows; x++) {
         for (let y = 0; y < cols; y++) {
-            const cell = new Cell(x, y);
+            const cell = new Cell(y, x);
             grid.push(cell)
         }
     }
-    current = grid[0];
-    
-    
+    current = grid[5];
+   
 }
 
 function draw() {
+    //set first cell as visited
+    current.visited = true; 
+    
+    //loop through the grid array and show each cell 
     for (let i = 0; i < grid.length; i++) {
         grid[i].show();
     }
-    current.visited = true;
-    current.show(); //if cell has been visited, change the color
     
-
     let next = current.checkNeighbors();
 
     if (next !== undefined) {
         next.visited = true;
-        
         current = next;
-        
-
-       
+           
     } //else if -> backtracker
-
-   
+    
+    
+    current.show(); //if cell has been visited, change the color
 
 }
 
 function index(x, y) { //arranges every single cell to go from left to right per row
     if (x < 0 || y < 0 || x > cols - 1 || y > rows - 1) {
-        return -1;                                   //returns an invalid index in order to seperate out the edge cases. The rest will go into neighbors.
+        return -1;     //returns an invalid index in order to seperate out the edge cases. The rest will go into neighbors.
     } else {
         return x + y * cols;
     }
@@ -65,6 +63,51 @@ class Cell {
         this.walls = [true, true, true, true];
         this.visited = false; //this keeps track of whether cells have been visited.
     }
+
+    checkNeighbors() {
+        let neighbors = [];
+        
+        let col = this.colNum;
+        let row = this.rowNum;
+
+        let top = grid[index(col, row - 1)];
+        let right = grid[index(col + 1, row)];
+        let bottom = grid[index(col, row + 1)];
+        let left = grid[index(col - 1, row)];
+
+        //if wall exists and is not visited, push to neighbors array
+        if (top && !top.visited) {
+            neighbors.push(top);
+        }
+        if (right && !right.visited) {
+            neighbors.push(right);
+        }
+        if (bottom && !bottom.visited) {
+            neighbors.push(bottom);
+        }
+        if (left && !left.visited) {
+            neighbors.push(left);
+        }
+
+        // [top, right, bottom, left].forEach(n => {
+        // if (n && !n.visited) {
+        //     neighbors.push(n);
+        // }
+        // });
+
+        //check the neighbor for array for unvisited cells and then randomly pick one to visit
+        if (neighbors.length !== 0) { 
+            let random = Math.floor(Math.random() * neighbors.length);
+            return neighbors[random];
+        } else {
+            return undefined;
+        }
+    };
+
+    // removeWall (cell1, cell2) {
+    //     let x = cell1.colNum - cell2.colNum
+    // }
+
     show() {
         let x = this.colNum * w; //x-coordinate is at the colNum scaled by width of each cell
         let y = this.rowNum * w;
@@ -105,42 +148,12 @@ class Cell {
             //ctx.rect(x,y,w,w);
             ctx.fillStyle = 'green'
             ctx.fillRect(x + 1, y + 1, w - 2, w - 2);
+            //ctx.fillRect(x + 1 , y+1 , w-1 , w-1);
+            //ctx.fillRect(x + 2 , y+2 , w-1 , w-1);
 
         }
     }
-    checkNeighbors() {
-        let neighbors = [];
-        let x = this.colNum * w;
-        let y = this.rowNum * w;
-
-        let top = grid[index(x, y - 1)];
-        let right = grid[index(x + 1, y)];
-        let bottom = grid[index(x, y + 1)];
-        let left = grid[index(x - 1, y)];
-
-        if (top && !top.visited) {
-            neighbors.push(top);
-        }
-        if (right && !right.visited) {
-            neighbors.push(right);
-        }
-        if (bottom && !bottom.visited) {
-            neighbors.push(bottom);
-        }
-        if (left && !left.visited) {
-            neighbors.push(left);
-        }
-        if (neighbors.length !== 0) { //check the neighbor for array for unvisited cells and then randomly pick one to visit
-            let random = Math.floor(Math.random() * neighbors.length);
-            return neighbors[random];
-        } else {
-            return undefined;
-        }
-    };
-
-    // removeWall (cell1, cell2) {
-    //     let x = cell1.colNum - cell2.colNum
-    // }
+    
 
 
 }
