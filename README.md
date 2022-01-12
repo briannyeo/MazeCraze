@@ -26,3 +26,20 @@ Future Updates:
 1. Animation for a moving sprite while exploring the maze.
 2. Possible other items to be found before exiting. 
 3. Timer and scorecount (including how many blocks away from exit by the time the countdown ends)
+
+
+
+
+Notes: 
+
+index() 
+Grid:
+    0 , 1 , 2
+0 [ 0 , 1 , 2]
+1 [ 3 , 4 , 5]
+2 [ 6 , 7 , 8]
+To access cell 5, [2][1]
+While in a 1D array would be:
+Grid = [ 0 , 1 , 2 , 3, 4 , 5 , 6 , 7 , 8]
+To access cell 5, need to do grid[2 + 1 * cols ] = grid[ 2 + 1 * (3) ] = grid[ 5 ]
+By adding j*col go to the index of the row in a 1D array
