@@ -1,4 +1,4 @@
-let maze = document.querySelector('.maze'); 
+let maze = document.querySelector('.maze');
 let ctx = maze.getContext("2d");
 
 
@@ -7,9 +7,9 @@ let rows; //global variable rows
 
 let w = 40;
 let grid = [];
-let current;  
+let current;
 
-const setup = () => {
+function setup() {
     maze.width = 400;
     maze.height = 400;
     cols = Math.floor(maze.width / w)
@@ -22,17 +22,41 @@ const setup = () => {
         }
     }
     current = grid[0];
+    
+    
 }
 
-const draw = () => {
+function draw() {
     for (let i = 0; i < grid.length; i++) {
         grid[i].show();
     }
-    current.visited = true; 
+    current.visited = true;
     current.show(); //if cell has been visited, change the color
-    current.checkNeighbors();
     
-} 
+
+    let next = current.checkNeighbors();
+
+    if (next !== undefined) {
+        next.visited = true;
+        
+        current = next;
+        
+
+       
+    } //else if -> backtracker
+
+   
+
+}
+
+function index(x, y) { //arranges every single cell to go from left to right per row
+    if (x < 0 || y < 0 || x > cols - 1 || y > rows - 1) {
+        return -1;                                   //returns an invalid index in order to seperate out the edge cases. The rest will go into neighbors.
+    } else {
+        return x + y * cols;
+    }
+
+};
 
 class Cell {
     constructor(colNum, rowNum) {
@@ -40,57 +64,84 @@ class Cell {
         this.rowNum = rowNum;
         this.walls = [true, true, true, true];
         this.visited = false; //this keeps track of whether cells have been visited.
-
-       
     }
-        show() {
-            let x = this.colNum * w; //x-coordinate is at the colNum scaled by width of each cell
-            let y = this.rowNum * w;
-            console.log(x)
-            // ctx.beginPath();
-            // ctx.rect(x, y, w, w);
-            // ctx.stroke();
+    show() {
+        let x = this.colNum * w; //x-coordinate is at the colNum scaled by width of each cell
+        let y = this.rowNum * w;
+        
+        // ctx.beginPath();
+        // ctx.rect(x, y, w, w);
+        // ctx.stroke();
 
-            if (this.walls[0]) {
-                ctx.beginPath(); //draw top line
-                ctx.moveTo(x, y);
-                ctx.lineTo(x + w, y);
-                ctx.stroke();
-            }
+        if (this.walls[0]) {
+            ctx.beginPath(); //draw top line
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + w, y);
+            ctx.stroke();
+        }
 
-            if (this.walls[1]) {
-                ctx.beginPath(); //draw right line
-                ctx.moveTo(x + w, y);
-                ctx.lineTo(x + w, y + w);
-                ctx.stroke();
-            };
+        if (this.walls[1]) {
+            ctx.beginPath(); //draw right line
+            ctx.moveTo(x + w, y);
+            ctx.lineTo(x + w, y + w);
+            ctx.stroke();
+        };
 
-            if (this.walls[2]) {
-                ctx.beginPath(); //draw bottom line
-                ctx.moveTo(x + w, y + w);
-                ctx.lineTo(x, y + w);
-                ctx.stroke();
-            }
+        if (this.walls[2]) {
+            ctx.beginPath(); //draw bottom line
+            ctx.moveTo(x + w, y + w);
+            ctx.lineTo(x, y + w);
+            ctx.stroke();
+        }
 
-            if (this.walls[3]) {
-                ctx.beginPath(); //draw left line
-                ctx.moveTo(x, y + w);
-                ctx.lineTo(x, y);
-                ctx.stroke();
-            }
+        if (this.walls[3]) {
+            ctx.beginPath(); //draw left line
+            ctx.moveTo(x, y + w);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+        }
 
-            if (this.visited) {
+        if (this.visited) {
             //ctx.rect(x,y,w,w);
-            ctx.fillStyle = 'red'
-            ctx.fillRect(x,y,w,w);
-            
-            }
+            ctx.fillStyle = 'green'
+            ctx.fillRect(x + 1, y + 1, w - 2, w - 2);
+
         }
-        checkNeighbors() {
-            let neighbors = [];
-            
+    }
+    checkNeighbors() {
+        let neighbors = [];
+        let x = this.colNum * w;
+        let y = this.rowNum * w;
+
+        let top = grid[index(x, y - 1)];
+        let right = grid[index(x + 1, y)];
+        let bottom = grid[index(x, y + 1)];
+        let left = grid[index(x - 1, y)];
+
+        if (top && !top.visited) {
+            neighbors.push(top);
         }
-    
+        if (right && !right.visited) {
+            neighbors.push(right);
+        }
+        if (bottom && !bottom.visited) {
+            neighbors.push(bottom);
+        }
+        if (left && !left.visited) {
+            neighbors.push(left);
+        }
+        if (neighbors.length !== 0) { //check the neighbor for array for unvisited cells and then randomly pick one to visit
+            let random = Math.floor(Math.random() * neighbors.length);
+            return neighbors[random];
+        } else {
+            return undefined;
+        }
+    };
+
+    // removeWall (cell1, cell2) {
+    //     let x = cell1.colNum - cell2.colNum
+    // }
+
 
 }
 
