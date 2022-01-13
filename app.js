@@ -5,13 +5,14 @@ let ctx = maze.getContext("2d");
 let cols; //global variable cols 
 let rows; //global variable rows
 
-let w = 40;
+let w = 20;
 let grid = [];
+let stack = [];
 let current;
 
 function setup() {
-    maze.width = 400;
-    maze.height = 400;
+    maze.width = 800;
+    maze.height = 800;
     cols = Math.floor(maze.width / w)
     rows = Math.floor(maze.height / w)
 
@@ -27,27 +28,32 @@ function setup() {
 function draw() {
     //set first cell as visited
     maze.style.background = 'white';
-    current.visited = true; 
-    
+    current.visited = true;
+
     //loop through the grid array and show each cell 
     for (let i = 0; i < grid.length; i++) {
         grid[i].show();
 
         let next = current.checkNeighbors();
-        
+
         if (next !== undefined) {
             next.visited = true;
-            
-            current.removeWalls(current, next);
+            current.highlight();
+            current.removeWalls(current, next); 
             current = next; //step 4
-               
+
         } //else if -> implement backtracker algo
-            
-        current.show(); //if cell has been visited, change the color
-    }       
+
+        current.show(); //if cell has been visited, change the color****
+        
+    }
     
-     
+    // window.requestAnimationFrame(() => {
+    //     draw();
+    //    }); // timeout/setInterval
 }
+
+
 
 
 
@@ -71,8 +77,8 @@ class Cell {
 
     checkNeighbors() {
         let neighbors = [];
-        
-        
+
+
         let col = this.colNum;
         let row = this.rowNum;
 
@@ -102,7 +108,7 @@ class Cell {
         // });
 
         //check the neighbor for array for unvisited cells and then randomly pick one to visit
-        if (neighbors.length !== 0) { 
+        if (neighbors.length !== 0) {
             let random = Math.floor(Math.random() * neighbors.length);
             return neighbors[random];
         } else {
@@ -110,12 +116,12 @@ class Cell {
         }
     };
 
-  
+
 
     //draw each cell on maze
     show() {
         let x = this.colNum * w; //x-coordinate is at the colNum scaled by width of each cell
-        let y = this.rowNum * w;        
+        let y = this.rowNum * w;
 
         if (this.walls[0]) {
             ctx.beginPath(); //draw top line
@@ -131,7 +137,7 @@ class Cell {
             ctx.lineTo(x + w, y + w);
             ctx.stroke();
 
-            
+
         };
 
         if (this.walls[2]) {
@@ -140,7 +146,7 @@ class Cell {
             ctx.lineTo(x, y + w);
             ctx.stroke();
 
-            
+
         }
 
         if (this.walls[3]) {
@@ -149,40 +155,47 @@ class Cell {
             ctx.lineTo(x, y);
             ctx.stroke();
 
-            
+
         }
 
         if (this.visited) {
             //ctx.rect(x,y,w,w);
             ctx.fillStyle = 'green'
-            ctx.fillRect(x + 1, y + 1, w - 2, w - 2);
+            ctx.fillRect(x,y,w,w)
+            //ctx.fillRect(x + 1, y + 1, w - 2, w - 2);
             //ctx.fillRect(x, y, w - 3, w - 3);
             //ctx.fillRect(x + 1 , y+1 , w-1 , w-1);
             //ctx.fillRect(x + 2 , y+2 , w-1 , w-1);
-            
+
         }
-    }   
+    }
+    highlight() {
+        let x = this.colNum * w;
+        let y = this.rowNum * w;
+        ctx.fillStyle= 'purple';
+        ctx.fillRect(x,y,w,w)
+    }
 
     removeWalls(cell1, cell2) {
-        
-        let x = cell1.colNum - cell2.colNum //compare to see if left or right of current cell. 
+        //compare to see if left or right of current cell. 
+        let x = cell1.colNum - cell2.colNum 
         if (x === 1) {
             cell1.walls[3] = false;
             cell2.walls[1] = false;
-          } else if (x === -1) {
+        } else if (x === -1) {
             cell1.walls[1] = false;
             cell2.walls[3] = false;
-          }
+        }
 
-        let y = cell1.rowNum - cell2.rowNum;    
+        let y = cell1.rowNum - cell2.rowNum;
         console.log(y)
         if (y === 1) {
             cell1.walls[0] = false;
             cell2.walls[2] = false;
-          } else if (y === -1) {
+        } else if (y === -1) {
             cell1.walls[2] = false;
             cell2.walls[0] = false;
-          }
+        }
     }
 
 }
@@ -190,4 +203,5 @@ class Cell {
 
 
 setup();
+
 draw(); 
