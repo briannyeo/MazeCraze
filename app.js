@@ -1,6 +1,6 @@
 let maze = document.querySelector('.maze');
 let ctx = maze.getContext("2d");
-
+let generationComplete = false;
 
 let cols; //global variable cols 
 let rows; //global variable rows
@@ -45,15 +45,21 @@ function draw() {
             current.show(); //if cell has been visited, change the color****
         } else if (stack.length > 0) {
             current = stack.pop();
+            //current.highlight()
            
-        }    
+        }  else if (stack.length === 0) {
+            generationComplete = true;
+            console.log('generationcomplete: ' + generationComplete)
+            return;
+        }
         
     }
     
     window.requestAnimationFrame(() => {
         draw();
        }); 
-    // timeout/setInterval
+    // timeout
+    //setInterval
 }
 
 
