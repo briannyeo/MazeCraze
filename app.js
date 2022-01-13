@@ -33,29 +33,34 @@ function draw() {
     //loop through the grid array and show each cell 
     for (let i = 0; i < grid.length; i++) {
         grid[i].show();
-          
-        current.show(); //if cell has been visited, change the color****
+    }
+        //current.show(); //if cell has been visited, change the color****
         let next = current.checkNeighbors();
+        console.log(next)
         
-        if (next !== undefined) {
+        while (next !== undefined) {
             next.visited = true;
+            const c = next;
+        
+            setTimeout(() => {c.show()}, 1000)
             stack.push(current);
-            
-            //current.highlight();
+
+           // current.highlight();
             current.removeWalls(current, next); 
             current = next; //step 4
-             
-        } else if (stack.length > 0) {
-            current = stack.pop();
-            //current.highlight()
+            next = current.checkNeighbors()
+         } 
+        //else if (stack.length > 0) {
+        //     current = stack.pop();
+        //     //current.highlight()
            
-        }  else if (stack.length === 0) {
-            generationComplete = true;
-            console.log('generationcomplete: ' + generationComplete)
-            return;
-        }
+        // }  else if (stack.length === 0) {
+        //     generationComplete = true;
+        //     console.log('generationcomplete: ' + generationComplete)
+        //     return;
+        // }
         
-    }
+    
     
     // window.requestAnimationFrame(() => {
     //     draw();
