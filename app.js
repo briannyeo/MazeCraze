@@ -5,7 +5,7 @@ let ctx = maze.getContext("2d");
 let cols; //global variable cols 
 let rows; //global variable rows
 
-let w = 20;
+let w = 40;
 let grid = [];
 let stack = [];
 let current;
@@ -38,19 +38,22 @@ function draw() {
 
         if (next !== undefined) {
             next.visited = true;
-            current.highlight();
+            stack.push(current);
+            //current.highlight();
             current.removeWalls(current, next); 
             current = next; //step 4
-
-        } //else if -> implement backtracker algo
-
-        current.show(); //if cell has been visited, change the color****
+            current.show(); //if cell has been visited, change the color****
+        } else if (stack.length > 0) {
+            current = stack.pop();
+           
+        }    
         
     }
     
-    // window.requestAnimationFrame(() => {
-    //     draw();
-    //    }); // timeout/setInterval
+    window.requestAnimationFrame(() => {
+        draw();
+       }); 
+    // timeout/setInterval
 }
 
 
