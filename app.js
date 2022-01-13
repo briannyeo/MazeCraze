@@ -33,16 +33,18 @@ function draw() {
     //loop through the grid array and show each cell 
     for (let i = 0; i < grid.length; i++) {
         grid[i].show();
-
+          
+        current.show(); //if cell has been visited, change the color****
         let next = current.checkNeighbors();
-
+        
         if (next !== undefined) {
             next.visited = true;
             stack.push(current);
+            
             //current.highlight();
             current.removeWalls(current, next); 
             current = next; //step 4
-            current.show(); //if cell has been visited, change the color****
+             
         } else if (stack.length > 0) {
             current = stack.pop();
             //current.highlight()
@@ -55,9 +57,9 @@ function draw() {
         
     }
     
-    window.requestAnimationFrame(() => {
-        draw();
-       }); 
+    // window.requestAnimationFrame(() => {
+    //     draw();
+    //    }); 
     // timeout
     //setInterval
 }
@@ -197,7 +199,7 @@ class Cell {
         }
 
         let y = cell1.rowNum - cell2.rowNum;
-        console.log(y)
+        
         if (y === 1) {
             cell1.walls[0] = false;
             cell2.walls[2] = false;
