@@ -1,73 +1,132 @@
 let maze = document.querySelector('.maze');
 let ctx = maze.getContext("2d");
-let generationComplete = false;
+let mazeCompleted = false;
 
-let cols; //global variable cols 
+let cols; //global variable cols
 let rows; //global variable rows
 
-let w = 40;
+const w = 40;
 let grid = [];
 let stack = [];
 let current;
 
-function setup() {
-    maze.width = 800;
-    maze.height = 800;
-    cols = Math.floor(maze.width / w)
-    rows = Math.floor(maze.height / w)
 
-    for (let x = 0; x < rows; x++) {
-        for (let y = 0; y < cols; y++) {
-            const cell = new Cell(y, x);
-            grid.push(cell)
+class Maze {
+    constructor(rows,columns) {
+        this.rows = rows;
+        this.columns = columns;
+    }
+
+    setup() {
+        maze.width = this.rows;
+        maze.height = this.columns;
+        cols = Math.floor(maze.width / w)
+        rows = Math.floor(maze.height / w)
+    
+        for (let x = 0; x < rows; x++) {
+            for (let y = 0; y < cols; y++) {
+                const cell = new Cell(y, x);
+                grid.push(cell)
+            }
         }
+        current = grid[0]; //decides the where the algo will start
     }
-    current = grid[0]; //decides the where the algo will start  
-}
-
-function draw() {
-    //set first cell as visited
-    maze.style.background = 'white';
-    current.visited = true;
-
-    //loop through the grid array and show each cell 
-    for (let i = 0; i < grid.length; i++) {
-        grid[i].show();
-    }
-        //current.show(); //if cell has been visited, change the color****
-        let next = current.checkNeighbors();
-        console.log(next)
+     draw() {
         
-        while (next !== undefined) {
-            next.visited = true;
-            const c = next;
+        maze.style.background = 'white';
+        //set first cell as visited
+        current.visited = true;
+    
+        //loop through the grid array and show each cell
+        for (let i = 0; i < grid.length; i++) {
+            grid[i].show();
+        }
         
-            setTimeout(() => {c.show()}, 1000)
-            stack.push(current);
+        const next = current.checkNeighbors();
 
-           // current.highlight();
-            current.removeWalls(current, next); 
-            current = next; //step 4
-            next = current.checkNeighbors()
-         } 
-        //else if (stack.length > 0) {
-        //     current = stack.pop();
-        //     //current.highlight()
+        if (next) {
+            next.visited = true; //change color to green
+
+            stack.push(current); //pushes visited to stack
+            
+            current.highlight(); //blue
+
+            current.removeWalls(current, next);
+
+            current = next;
+      
+          } else if (stack.length > 0) {
+            let cell = stack.pop();
+            current = cell;
+            current.highlight();
+          } 
+
+          if (stack.length === 0) {
+            mazeCompleted = true;
+            return;
+          }
+      
+        // Recursively call the draw function. This will be called up until the stack is empty
+       
+        let t = 5
+        setTimeout(() => {
+        this.draw()
+        }, t)
+        //t+=50;
+
+       
+        
+                
+        
+        // window.requestAnimationFrame(() => {
+        //     this.draw();
+        //   });
+
+
+        // let next = current.checkNeighbors();
+        // let t = 500
+        
+        // while (next !== undefined) {
+        //     next.visited = true;
+            
+        //     const n = next;
+        //     const c = current
+    
+        //     setTimeout(() => {
+        //         c.show()
+        //         n.highlight()
+    
+        //     }, t)
+        //     t += 50
+    
+            // stack.push(current);
+            // console.log(stack);
+        
+            // current.removeWalls(current, next);   
+            // current = next; //step 4
+            // next = current.checkNeighbors()     
+    
            
-        // }  else if (stack.length === 0) {
+        // }
+    
+        // if (stack.length > 0) {
+        //     let cell = stack.pop();
+        //     current = cell;
+        //     //current.highlight()
+        //     }
+           
+        //     if (stack.length === 0) {
         //     generationComplete = true;
-        //     console.log('generationcomplete: ' + generationComplete)
         //     return;
         // }
-        
     
     
-    // window.requestAnimationFrame(() => {
-    //     draw();
-    //    }); 
-    // timeout
-    //setInterval
+    }
+    
 }
+
+
+
 
 
 
@@ -93,7 +152,6 @@ class Cell {
 
     checkNeighbors() {
         let neighbors = [];
-
 
         let col = this.colNum;
         let row = this.rowNum;
@@ -125,7 +183,7 @@ class Cell {
 
         //check the neighbor for array for unvisited cells and then randomly pick one to visit
         if (neighbors.length !== 0) {
-            let random = Math.floor(Math.random() * neighbors.length);
+            const random = Math.floor(Math.random() * neighbors.length);
             return neighbors[random];
         } else {
             return undefined;
@@ -170,6 +228,7 @@ class Cell {
             ctx.moveTo(x, y + w);
             ctx.lineTo(x, y);
             ctx.stroke();
+            
 
 
         }
@@ -177,7 +236,7 @@ class Cell {
         if (this.visited) {
             //ctx.rect(x,y,w,w);
             ctx.fillStyle = 'green'
-            ctx.fillRect(x,y,w,w)
+            ctx.fillRect(x, y, w, w)
             //ctx.fillRect(x + 1, y + 1, w - 2, w - 2);
             //ctx.fillRect(x, y, w - 3, w - 3);
             //ctx.fillRect(x + 1 , y+1 , w-1 , w-1);
@@ -188,13 +247,13 @@ class Cell {
     highlight() {
         let x = this.colNum * w;
         let y = this.rowNum * w;
-        ctx.fillStyle= 'purple';
-        ctx.fillRect(x,y,w,w)
+        ctx.fillStyle = 'red';
+        ctx.fillRect(x, y, w, w)
     }
 
     removeWalls(cell1, cell2) {
-        //compare to see if left or right of current cell. 
-        let x = cell1.colNum - cell2.colNum 
+        //compare to see if left or right of current cell.
+        let x = cell1.colNum - cell2.colNum
         if (x === 1) {
             cell1.walls[3] = false;
             cell2.walls[1] = false;
@@ -204,7 +263,7 @@ class Cell {
         }
 
         let y = cell1.rowNum - cell2.rowNum;
-        
+
         if (y === 1) {
             cell1.walls[0] = false;
             cell2.walls[2] = false;
@@ -217,7 +276,13 @@ class Cell {
 }
 
 
+let newMaze = new Maze(800 ,800)
+newMaze.setup();
 
-setup();
+newMaze.draw();
 
-draw(); 
+
+
+
+
+
