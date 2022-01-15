@@ -9,6 +9,7 @@ const w = 40;
 let grid = [];
 let stack = [];
 let current;
+let end;
 
 
 class Maze {
@@ -30,6 +31,8 @@ class Maze {
             }
         }
         current = grid[0]; //decides the where the algo will start
+        grid[index(cols-1, rows-1)].end = true;
+
     }
      draw() {
         
@@ -68,17 +71,13 @@ class Maze {
       
         // Recursively call the draw function. This will be called up until the stack is empty
        
-        let t = 5
+        //let t = 5
         setTimeout(() => {
         this.draw()
-        }, t)
+        }, 1)
         //t+=50;
 
-       
-        
-                
-        
-        // window.requestAnimationFrame(() => {
+       // window.requestAnimationFrame(() => {
         //     this.draw();
         //   });
 
@@ -126,13 +125,6 @@ class Maze {
 }
 
 
-
-
-
-
-
-
-
 function index(x, y) { //arranges every single cell to go from left to right per row
     if (x < 0 || y < 0 || x > cols - 1 || y > rows - 1) {
         return -1;     //returns an invalid index in order to seperate out the edge cases. The rest will go into neighbors.
@@ -148,6 +140,7 @@ class Cell {
         this.rowNum = rowNum;
         this.walls = [true, true, true, true];
         this.visited = false; //this keeps track of whether cells have been visited.
+        this.end = false;
     }
 
     checkNeighbors() {
@@ -190,7 +183,7 @@ class Cell {
         }
     };
 
-
+    
 
     //draw each cell on maze
     show() {
@@ -202,7 +195,6 @@ class Cell {
             ctx.moveTo(x, y);
             ctx.lineTo(x + w, y);
             ctx.stroke();
-
         }
 
         if (this.walls[1]) {
@@ -210,8 +202,6 @@ class Cell {
             ctx.moveTo(x + w, y);
             ctx.lineTo(x + w, y + w);
             ctx.stroke();
-
-
         };
 
         if (this.walls[2]) {
@@ -219,8 +209,6 @@ class Cell {
             ctx.moveTo(x + w, y + w);
             ctx.lineTo(x, y + w);
             ctx.stroke();
-
-
         }
 
         if (this.walls[3]) {
@@ -228,26 +216,26 @@ class Cell {
             ctx.moveTo(x, y + w);
             ctx.lineTo(x, y);
             ctx.stroke();
-            
-
-
         }
 
         if (this.visited) {
             //ctx.rect(x,y,w,w);
-            ctx.fillStyle = 'green'
+            ctx.fillStyle = '#71E680'
             ctx.fillRect(x, y, w, w)
             //ctx.fillRect(x + 1, y + 1, w - 2, w - 2);
             //ctx.fillRect(x, y, w - 3, w - 3);
             //ctx.fillRect(x + 1 , y+1 , w-1 , w-1);
             //ctx.fillRect(x + 2 , y+2 , w-1 , w-1);
-
+        }
+        if (this.end) {
+            ctx.fillStyle = 'red'
+            ctx.fillRect(x,y,w,w)
         }
     }
     highlight() {
         let x = this.colNum * w;
         let y = this.rowNum * w;
-        ctx.fillStyle = 'red';
+        ctx.fillStyle = '#E671D6';
         ctx.fillRect(x, y, w, w)
     }
 
@@ -272,17 +260,10 @@ class Cell {
             cell2.walls[0] = false;
         }
     }
-
 }
-
 
 let newMaze = new Maze(800 ,800)
 newMaze.setup();
 
 newMaze.draw();
-
-
-
-
-
 
