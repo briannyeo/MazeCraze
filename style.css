@@ -1,3 +1,25 @@
+body {
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+.instructionstext{
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 30%;
+  background: cyan;
+  z-index: 4;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 10px;
+
+}
+
 button {
 	box-shadow:inset 0px 0px 0px 0px #91b8b3;
 	background:linear-gradient(to bottom, #768d87 5%, #292626 100%);

@@ -1,20 +1,60 @@
 // document.addEventListener('start', generateMaze);
 let replay = document.querySelector(".replay");
+let complete=document.querySelector('.complete');
+let instructions=document.querySelector('.instructionstext');
 
-document.getElementById("start").addEventListener("click", generateMaze);
+//let easy = document.getElementById('#easy');
+document.getElementById("easy").addEventListener("click", generateEasyMaze);
+
+//let normal = document.getElementById('#normal');
+document.getElementById("normal").addEventListener("click", generateNormalMaze);
+
+//let hard = document.getElementById('#hard');
+document.getElementById("hard").addEventListener("click", generateHardMaze);
+
+//let insane = document.getElementById('#insane');
+document.getElementById("insane").addEventListener("click", generateInsaneMaze);
+
 document.addEventListener("keydown", move);
+
 replay.addEventListener("click", () => {
     location.reload();
   });
 
-function generateMaze(event) {
+document.getElementById('instructions').addEventListener('click', instructions.style.display = 'block')
+
+function generateEasyMaze(event) {
+  
     event.preventDefault();
     
-    newMaze = new Maze(80,80);
+    newMaze = new Maze(400,400);
     newMaze.setup();
     newMaze.draw();
   }
 
+  function generateNormalMaze(event) {
+    event.preventDefault();
+    
+    newMaze = new Maze(800,800);
+    newMaze.setup();
+    newMaze.draw();
+  }
+
+  function generateHardMaze(event) {
+    event.preventDefault();
+    
+    newMaze = new Maze(1200,1200);
+    newMaze.setup();
+    newMaze.draw();
+  }
+
+  function generateInsaneMaze(event) {
+    event.preventDefault();
+    
+    newMaze = new Maze(1600,1600);
+    newMaze.setup();
+    newMaze.draw();
+  }
   function move(event) {
        if (!mazeCompleted) return;
         let key = event.keyCode;
