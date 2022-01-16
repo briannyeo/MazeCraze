@@ -82,42 +82,7 @@ class Maze {
         //   });
 
 
-        // let next = current.checkNeighbors();
-        // let t = 500
-        
-        // while (next !== undefined) {
-        //     next.visited = true;
-            
-        //     const n = next;
-        //     const c = current
-    
-        //     setTimeout(() => {
-        //         c.show()
-        //         n.highlight()
-    
-        //     }, t)
-        //     t += 50
-    
-            // stack.push(current);
-            // console.log(stack);
-        
-            // current.removeWalls(current, next);   
-            // current = next; //step 4
-            // next = current.checkNeighbors()     
-    
-           
-        // }
-    
-        // if (stack.length > 0) {
-        //     let cell = stack.pop();
-        //     current = cell;
-        //     //current.highlight()
-        //     }
-           
-        //     if (stack.length === 0) {
-        //     generationComplete = true;
-        //     return;
-        // }
+      
     
     
     }
@@ -236,7 +201,7 @@ class Cell {
         let x = this.colNum * w;
         let y = this.rowNum * w;
         ctx.fillStyle = '#E671D6';
-        ctx.fillRect(x, y, w, w)
+        ctx.fillRect(x+1, y+1, w-4, w-4)
     }
 
     removeWalls(cell1, cell2) {
@@ -262,8 +227,7 @@ class Cell {
     }
 }
 
-let newMaze = new Maze(800 ,800)
-newMaze.setup();
-
-newMaze.draw();
+// let newMaze = new Maze(800 ,800)
+// newMaze.setup();
+// newMaze.draw();
 
