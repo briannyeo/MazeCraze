@@ -1,5 +1,7 @@
 # MazeGameJS-Project-1-
 
+This is a project built with HTML, CSS and JavaScript. It is a Maze Generator that uses a depth-first search algorithm and implemented using recursive backtracking. 
+
 The depth-first search algorithm of maze generation is frequently implemented using backtracking. This can be described with a following recursive routine:
 
 1. Given a current cell as a parameter,
@@ -9,6 +11,15 @@ The depth-first search algorithm of maze generation is frequently implemented us
         Remove the wall between the current cell and the chosen cell
         Invoke the routine recursively for a chosen cell
         which is invoked once for any initial cell in the area.
+
+There are 4 difficulty levels that have been preset and optimized according to the width and height of the maze canvas with higher difficulties having more cells. 
+
+How to Play: 
+Using arrow keys, navigate the pink block to the end of the maze. 
+
+
+
+
 
 
 
