@@ -1,32 +1,45 @@
 // document.addEventListener('start', generateMaze);
-let replay = document.querySelector(".replay");
-let complete=document.querySelector('.complete');
-let instructions=document.querySelector('.instructionstext');
+const replay = document.querySelector(".replay");
+const complete=document.querySelector('.complete');
+const instructions=document.querySelector('.instructions');
+const instructionsbtn = document.querySelector('.instructionsbtn');
+const overlay = document.querySelector('.overlay')
 
-//let easy = document.getElementById('#easy');
 document.getElementById("easy").addEventListener("click", generateEasyMaze);
-
-//let normal = document.getElementById('#normal');
 document.getElementById("normal").addEventListener("click", generateNormalMaze);
-
-//let hard = document.getElementById('#hard');
 document.getElementById("hard").addEventListener("click", generateHardMaze);
-
-//let insane = document.getElementById('#insane');
 document.getElementById("insane").addEventListener("click", generateInsaneMaze);
-
 document.addEventListener("keydown", move);
 
 replay.addEventListener("click", () => {
     location.reload();
   });
 
-document.getElementById('instructions').addEventListener('click', instructions.style.display = 'block')
 
+
+//Overlay and Instructions
+document.getElementById('instructionsbtn').addEventListener("click", addActive)
+
+document.getElementById("close-button").addEventListener("click", removeActive)
+
+function addActive(e) {
+  e.preventDefault();
+  instructions.classList.add("active");
+  overlay.classList.add("active");
+}
+
+function removeActive(e) {
+  e.preventDefault();
+  instructions.classList.remove("active");
+  overlay.classList.remove("active");
+}
+
+
+//generate maze based on difficulty level
 function generateEasyMaze(event) {
-  
-    event.preventDefault();
     
+    event.preventDefault();
+
     newMaze = new Maze(400,400);
     newMaze.setup();
     newMaze.draw();

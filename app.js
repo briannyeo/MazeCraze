@@ -5,7 +5,7 @@ let mazeCompleted = false;
 let cols; //global variable cols
 let rows; //global variable rows
 
-const w = 40;
+let w = 40;
 let grid = [];
 let stack = [];
 let current;

@@ -1,41 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css" />
-    <script
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    charset="utf-8"
-  ></script>
-  
-  
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" charset="utf-8"></script>
+
+
+  <title>Document</title>
 </head>
+
 <body>
-  <div class=complete>
+
+  <div class="complete">
     You Win! <br>
     <button class='replay'> Play Again</button>
   </div>
-  <div id=instructionstext>
-    1. Select a difficulty
-    2. Navigate the pink box to the red end point using arrow keys
+
+  <div class="instructions">
+   <div class = "header">
+     <div class = "title">Instructions</div>
+     <button id="close-button">&times;</button>
+    </div> 
+   
+
+    <div class='instructions-body'>
+     1. Click on Easy, Normal, Hard or Insane to begin generating the maze <br>
+     2. Using arrow keys, navigate to the end point to win! <br>
+     3. Click refresh before clicking a difficulty level to restart. 
+    </div>
   </div>
+
+
   <form>
-    <button id='easy'>easy</button>
-    <button id='normal'>normal</button>
-    <button id='hard'>hard</button>
-    <button id='insane'>insane</button>
-    <button id='instructions'>Open Instructions</button>
+    <button class = select-button id='easy'>easy</button>
+    <button class = select-button id='normal'>normal</button>
+    <button class = select-button id='hard'>hard</button>
+    <button class = select-button id='insane'>insane</button>
+    <button class = select-button id='instructionsbtn'>Open Instructions</button>
   </form>
- 
-    
-
-<canvas class='maze'></canvas>
-    
 
 
+
+  <canvas class='maze'></canvas>
+
+
+<div class='overlay'></div>
 </body>
 <script src="app.js" charset="utf-8"></script>
 <script src="controls.js" charset="utf-8"></script>

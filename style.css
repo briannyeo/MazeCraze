@@ -3,24 +3,59 @@ body {
   justify-content: center;
   justify-items: center;
 }
-
-.instructionstext{
-  display: none;
-  position: absolute;
-  top: 50%;
+ 
+.instructions{
+  position:fixed;
+  top:50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;
-  height: 30%;
-  background: cyan;
-  z-index: 4;
-  padding: 2rem;
-  text-align: center;
-  border-radius: 10px;
+  transform: translate(-50%, -50%) scale(0);
+  border: 1px solid black;
+  border-radius:10px;
+  z-index: 10;
+  background-color: white;
+  width: 500px;
+  max-width: 80%;
+}
+.instructions.active {
+  transform: translate(-50%, -50%) scale(1)
+}
+
+.header {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+.title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.instructions-body{
+  padding:10px 15px;
+  
 
 }
 
-button {
+.overlay{
+  position: fixed;
+  opacity: 0;
+  transition: 200ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,.5);
+  pointer-events: none ;
+}
+
+.overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.select-button {
 	box-shadow:inset 0px 0px 0px 0px #91b8b3;
 	background:linear-gradient(to bottom, #768d87 5%, #292626 100%);
 	background-color:#768d87;
@@ -36,11 +71,11 @@ button {
 	text-decoration:none;
 	text-shadow:0px -1px 0px #2b665e;
 }
-button:hover {
+.select-button:hover {
 	background:linear-gradient(to bottom, #292626 5%, #768d87 100%);
 	background-color:#292626;
 }
-button:active {
+.select-button:active {
 	position:relative;
 	top:1px;
 }
