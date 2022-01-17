@@ -4,6 +4,14 @@ body {
   justify-items: center;
 }
  
+
+/* .maze {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+} */
+
 .instructions{
   position:fixed;
   top:50%;
@@ -34,7 +42,7 @@ body {
 
 .instructions-body{
   padding:10px 15px;
-  
+
 
 }
 
@@ -86,13 +94,16 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 50%;
-  height: 30%;
-  background: cyan;
+  width: 70%;
+  height: 50%;
+  background: gold;
   z-index: 4;
   padding: 2rem;
   text-align: center;
   border-radius: 10px;
+  font-size: 50px;
+  font-weight:100;
+  justify-items: center;
 }
 
 

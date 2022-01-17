@@ -5,7 +5,7 @@ let mazeCompleted = false;
 let cols; //global variable cols
 let rows; //global variable rows
 
-let w = 40;
+let w = 20;
 let grid = [];
 let stack = [];
 let current;
@@ -16,6 +16,7 @@ class Maze {
     constructor(rows,columns) {
         this.rows = rows;
         this.columns = columns;
+        
     }
 
     setup() {
