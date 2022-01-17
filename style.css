@@ -106,6 +106,16 @@ body {
   justify-items: center;
 }
 
+#seconds {
+  font-size: 5em;}
+
+#minutes {
+  font-size: 5em;
+}
+#colon {
+  font-size: 5em;
+}
+
 
    
    
