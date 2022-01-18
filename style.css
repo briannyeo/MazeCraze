@@ -141,14 +141,17 @@ body {
 }
 
 .timer {
-  
   position: absolute;
-  margin: 0 auto;
+  width: 250px;
+  height: 55px;
+  left: 55%;
+  top:2%;
+  transform: translate(-50%, -50%);
 }
 
 #display{
   font-size: 60px;
-
+  color:#3d1f06;
 }
 
 
