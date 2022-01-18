@@ -45,7 +45,7 @@ function generateEasyMaze(event) {
 
   event.preventDefault();
 
-  newMaze = new Maze(80, 80);
+  newMaze = new Maze(400, 400);
   newMaze.setup();
   newMaze.draw();
 }
