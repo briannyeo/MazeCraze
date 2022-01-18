@@ -10,7 +10,7 @@ document.getElementById("normal").addEventListener("click", generateNormalMaze);
 document.getElementById("hard").addEventListener("click", generateHardMaze);
 document.getElementById("insane").addEventListener("click", generateInsaneMaze);
 document.addEventListener("keydown", move);
-document.addEventListener('keydown', timeStart);
+document.addEventListener("keydown", startStop, {once:true});
 
 
 replay.addEventListener("click", () => {
@@ -42,7 +42,7 @@ function generateEasyMaze(event) {
 
   event.preventDefault();
 
-  newMaze = new Maze(400, 400);
+  newMaze = new Maze(80, 80);
   newMaze.setup();
   newMaze.draw();
 }
@@ -70,6 +70,7 @@ function generateInsaneMaze(event) {
   newMaze.setup();
   newMaze.draw();
 }
+
 function move(event) {
   if (!mazeCompleted) return;
   let key = event.keyCode;
@@ -90,7 +91,10 @@ function move(event) {
         newMaze.draw();
         current.highlight();
 
-        if (current.end) complete.style.display = "block";
+        if (current.end) {
+          complete.style.display = "block";
+          startStop();
+        }
       }
       break;
 
@@ -104,7 +108,10 @@ function move(event) {
 
         newMaze.draw();
         current.highlight();
-        if (current.end) complete.style.display = "block";
+        if (current.end) {
+          complete.style.display = "block";
+          startStop();
+        }
       }
       break;
 
@@ -116,7 +123,10 @@ function move(event) {
         current = next;
         newMaze.draw();
         current.highlight();
-        if (current.end) complete.style.display = "block";
+        if (current.end) {
+          complete.style.display = "block";
+          startStop();
+        }
       }
       break;
 
@@ -129,34 +139,95 @@ function move(event) {
         newMaze.draw();
         current.highlight();
 
-        if (current.end) complete.style.display = "block";
+        if (current.end) {
+          complete.style.display = "block";
+          startStop();
+        }
       }
       break;
   }
 }
 //Timer
-let minutesLabel = document.getElementById("minutes");
-let secondsLabel = document.getElementById("seconds");
-let totalSeconds = 0;
+  
+//Define vars to hold time values
+let seconds = 0;
+let minutes = 0;
+let hours = 0;
 
-function timeStart() {
+//Define vars to hold "display" value
+let displaySeconds = 0;
+let displayMinutes = 0;
+let displayHours = 0;
+
+//Define var to hold setInterval() function
+let interval = null;
+
+//Define var to hold stopwatch status
+let status = "stopped";
+
+//Stopwatch function (logic to determine when to increment next value, etc.)
+function stopWatch(){
+
+    seconds++;
+
+    //Logic to determine when to increment next value
+    if(seconds / 60 === 1){
+        seconds = 0;
+        minutes++;
+
+        if(minutes / 60 === 1){
+            minutes = 0;
+            hours++;
+        }
+
+    }
+
+    //If seconds/minutes/hours are only one digit, add a leading 0 to the value
+    if(seconds < 10){
+        displaySeconds = "0" + seconds.toString();
+    }
+    else{
+        displaySeconds = seconds;
+    }
+
+    if(minutes < 10){
+        displayMinutes = "0" + minutes.toString();
+    }
+    else{
+        displayMinutes = minutes;
+    }
+
+    if(hours < 10){
+        displayHours = "0" + hours.toString();
+    }
+    else{
+        displayHours = hours;
+    }
+
+    //Display updated time values to user
+    document.getElementById("display").innerHTML = displayHours + ":" + displayMinutes + ":" + displaySeconds;
+
+}
+
+function startStop(){
   if (!mazeCompleted) return;
-  setInterval(setTime, 1000)
+    if(status === "stopped"){
+
+        //Start the stopwatch (by calling the setInterval() function)
+        interval = window.setInterval(stopWatch, 1000);
+        //document.getElementById("startStop").innerHTML = "Stop";
+        status = "started";
+
+    }
+    else{
+
+        window.clearInterval(interval);
+        //document.getElementById("startStop").innerHTML = "Start";
+        status = "stopped";
+
+    }
+
 }
 
-function setTime() {
-  ++totalSeconds;
-  secondsLabel.innerHTML = pad(totalSeconds % 60);
-  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-}
 
-function pad(val) {
-  let valString = val + "";
-  if (valString.length < 2) {
-    return "0" + valString;
-  }
-  else {
-    return valString;
-  }
-}
 

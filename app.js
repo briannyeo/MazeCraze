@@ -195,7 +195,7 @@ class Cell {
         }
         if (this.end) {
             ctx.fillStyle = 'red'
-            ctx.fillRect(x,y,w,w)
+            ctx.fillRect(x + 2,y + 2,w -4,w-4)
         }
     }
     highlight() {
