@@ -186,7 +186,7 @@ class Cell {
 
         if (this.visited) {
             //ctx.rect(x,y,w,w);
-            ctx.fillStyle = '#71E680'
+            ctx.fillStyle = '#7e5427'
             ctx.fillRect(x, y, w, w)
             //ctx.fillRect(x + 1, y + 1, w - 2, w - 2);
             //ctx.fillRect(x, y, w - 3, w - 3);
@@ -194,14 +194,14 @@ class Cell {
             //ctx.fillRect(x + 2 , y+2 , w-1 , w-1);
         }
         if (this.end) {
-            ctx.fillStyle = 'red'
+            ctx.fillStyle = '#e4685d'
             ctx.fillRect(x + 2,y + 2,w -4,w-4)
         }
     }
     highlight() {
         let x = this.colNum * w;
         let y = this.rowNum * w;
-        ctx.fillStyle = '#E671D6';
+        ctx.fillStyle = '#81a321';
         ctx.fillRect(x+1, y+1, w-4, w-4)
     }
 

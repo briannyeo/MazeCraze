@@ -1,8 +1,13 @@
+*{
+  font-family: 'Patua One', cursive;
+}
+
 body {
   align-items: center;
   justify-content: center;
   justify-items: center;
-  background-image: url(images/grass-background.jpeg)
+  background: url(images/grass.jpg) no-repeat center fixed;
+  background-size: cover;
 }
  
 
@@ -12,6 +17,32 @@ body {
   left: 50%;
   transform: translate(-50%, -50%); 
 }
+.replay {
+  
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+    background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+    background-color:#ffffff;
+    border-radius:6px;
+    border:1px solid #dcdcdc;
+    display:inline-block;
+    cursor:pointer;
+    color:#666666;
+    font-family:Arial;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #ffffff;
+  }
+  .replay:hover {
+    background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+    background-color:#f6f6f6;
+  }
+  .replay:active {
+    position:relative;
+    top:1px;
+  }
+
 
 .instructions{
   position:fixed;
@@ -44,7 +75,6 @@ body {
 .instructions-body{
   padding:10px 15px;
 
-
 }
 
 .overlay{
@@ -66,23 +96,23 @@ body {
 
 .select-button {
 	box-shadow:inset 0px 0px 0px 0px #91b8b3;
-	background:linear-gradient(to bottom, #768d87 5%, #292626 100%);
-	background-color:#768d87;
+	background:linear-gradient(to bottom, #fc8d83 5%, #e4685d 100%);
+	background-color:#fc8d83;
 	border-radius:5px;
-	border:2px solid #566963;
+	border:1px solid #d83526;
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
-	font-family:Arial;
 	font-size:15px;
 	font-weight:bold;
 	padding:14px 23px;
 	text-decoration:none;
-	text-shadow:0px -1px 0px #2b665e;
+	text-shadow:0px 1px 0px #b23e35;
+  
 }
 .select-button:hover {
-	background:linear-gradient(to bottom, #292626 5%, #768d87 100%);
-	background-color:#292626;
+	background:linear-gradient(to bottom, #e4685d 5%, #fc8d83 100%);
+	background-color:#e4685d;
 }
 .select-button:active {
 	position:relative;
@@ -97,30 +127,30 @@ body {
   transform: translate(-50%, -50%);
   width: 70%;
   height: 50%;
-  background: gold;
+  background: #e4685d;
   z-index: 4;
   padding: 2rem;
   text-align: center;
   border-radius: 10px;
-  font-size: 50px;
+  font-size: 200px;
   font-weight:100;
   justify-items: center;
-}
+  color: white;
+  
 
+}
 
 .timer {
+  
   position: absolute;
-  width: 250px;
-  height: 55px;
-  left: 50%;
-  top:4%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  font-size: 50px;
-  font-weight: bold;
-  background-color:#eae0c2;
-  border-radius: 15px; 
+  margin: 0 auto;
 }
+
+#display{
+  font-size: 60px;
+
+}
+
 
    
    
