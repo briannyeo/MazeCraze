@@ -5,6 +5,9 @@ const instructions = document.querySelector('.instructions');
 const instructionsbtn = document.querySelector('.instructionsbtn');
 const overlay = document.querySelector('.overlay')
 
+document.getElementById("restartbtn").addEventListener("click", () => {
+  location.reload()});
+
 document.getElementById("easy").addEventListener("click", generateEasyMaze);
 document.getElementById("normal").addEventListener("click", generateNormalMaze);
 document.getElementById("hard").addEventListener("click", generateHardMaze);
