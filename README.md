@@ -19,23 +19,10 @@ Using arrow keys, navigate the pink block to the end of the maze.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 Future Updates:
 
-1. Animation for a moving sprite while exploring the maze.
-2. Possible other items to be found before exiting. 
+1. Change the pink box to a moving sprite that will explore the maze
+2. Possible other items and conditions to be found before exiting. 
 3. Timer and scorecount (including how many blocks away from exit by the time the countdown ends)
 4. Add a chaser who will slowly follow the player until player gets caught
 
