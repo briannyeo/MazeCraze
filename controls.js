@@ -49,7 +49,7 @@ function generateEasyMaze(event) {
 
   event.preventDefault();
 
-  newMaze = new Maze(40, 40);
+  newMaze = new Maze(200, 200);
   newMaze.setup();
   newMaze.draw();
 }
@@ -57,7 +57,7 @@ function generateEasyMaze(event) {
 function generateNormalMaze(event) {
   event.preventDefault();
 
-  newMaze = new Maze(800, 800);
+  newMaze = new Maze(600, 600);
   newMaze.setup();
   newMaze.draw();
 }
