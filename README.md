@@ -1,9 +1,12 @@
 # MazeGameJS-Project-1-
 
-This is a project built with HTML, CSS and JavaScript. It is a Maze Generator that uses a depth-first search algorithm and implemented using recursive backtracking. 
+Github Link: https://briannyeo.github.io/MazeGameJS-Project-1-/
+## Description
+This is a project built with HTML, CSS and JavaScript. It is a Maze Generator that uses a depth-first search algorithm and implemented using recursive backtracking ([see Wiki](https://en.wikipedia.org/wiki/Maze_generation_algorithm)). Subsequently styled with CSS.
 
-The depth-first search algorithm of maze generation is frequently implemented using backtracking. This can be described with a following recursive routine:
 
+
+### Steps for DFS/Recursive backtracker as follows: 
 1. Given a current cell as a parameter,
 2. Mark the current cell as visited
 3. While the current cell has any unvisited neighbour cells
@@ -12,26 +15,35 @@ The depth-first search algorithm of maze generation is frequently implemented us
         Invoke the routine recursively for a chosen cell
         which is invoked once for any initial cell in the area.
 
-There are 4 difficulty levels that have been preset and optimized according to the width and height of the maze canvas with higher difficulties having more cells. 
+There are 4 difficulty levels that have been preset and optimized according to the width and height of the maze canvas. Higher difficulties have more cells which the player is required to traverse through before reaching the end point. 
 
-How to Play: 
+
+
+## How to Play: 
 Using arrow keys, navigate the pink block to the end of the maze. 
 
 
 
-Future Updates:
+## Technologies Used
+1. HTML
+2. Javascript
+3. CSS
 
-1. Change the pink box to a moving sprite that will explore the maze
-2. Possible other items and conditions to be found before exiting. 
+
+
+## Future Updates:
+
+1. Change the current box to an animated sprite that will explore the maze
+2. Other possible items / conditions to be added before exiting. 
 3. Timer and scorecount (including how many blocks away from exit by the time the countdown ends)
 4. Add a chaser who will slowly follow the player until player gets caught
 
 
 
 
-Notes: 
+## Notes: 
 
-index() 
+index() - to arrange cells in horizontal order
 Grid:
     0 , 1 , 2
 0 [ 0 , 1 , 2]
