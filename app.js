@@ -12,6 +12,9 @@ let current;
 let end;
 
 
+
+
+
 class Maze {
     constructor(rows,columns) {
         this.rows = rows;

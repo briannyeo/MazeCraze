@@ -6,21 +6,25 @@ const instructionsbtn = document.querySelector('.instructionsbtn');
 const overlay = document.querySelector('.overlay')
 
 document.getElementById("restartbtn").addEventListener("click", () => {
-  location.reload()});
+  location.reload()
+});
 
 document.getElementById("easy").addEventListener("click", generateEasyMaze);
 document.getElementById("normal").addEventListener("click", generateNormalMaze);
 document.getElementById("hard").addEventListener("click", generateHardMaze);
 document.getElementById("insane").addEventListener("click", generateInsaneMaze);
 document.addEventListener("keydown", move);
-document.addEventListener("keydown", startStop, {once:true});
+document.addEventListener("keydown", startStop, { once: true });
 
 
 replay.addEventListener("click", () => {
   location.reload();
 });
 
-
+const completeSound = new Audio("sounds/completeGame.wav");
+const playAudio = () => {
+  completeSound.play();
+}
 
 //Overlay and Instructions
 document.getElementById('instructionsbtn').addEventListener("click", addActive)
@@ -45,7 +49,7 @@ function generateEasyMaze(event) {
 
   event.preventDefault();
 
-  newMaze = new Maze(400, 400);
+  newMaze = new Maze(40, 40);
   newMaze.setup();
   newMaze.draw();
 }
@@ -97,6 +101,7 @@ function move(event) {
         if (current.end) {
           complete.style.display = "block";
           startStop();
+          playAudio();
         }
       }
       break;
@@ -114,6 +119,7 @@ function move(event) {
         if (current.end) {
           complete.style.display = "block";
           startStop();
+          playAudio();
         }
       }
       break;
@@ -129,6 +135,7 @@ function move(event) {
         if (current.end) {
           complete.style.display = "block";
           startStop();
+          playAudio();
         }
       }
       break;
@@ -145,13 +152,14 @@ function move(event) {
         if (current.end) {
           complete.style.display = "block";
           startStop();
+          playAudio();
         }
       }
       break;
   }
 }
 //Timer
-  
+
 let seconds = 0;
 let minutes = 0;
 let hours = 0;
@@ -167,62 +175,62 @@ let interval = null;
 let status = "stopped";
 
 //Stopwatch function (logic to determine when to increment next value, etc.)
-function stopWatch(){
+function stopWatch() {
 
-    seconds++;
+  seconds++;
 
-    //Logic to determine when to increment next value
-    if(seconds / 60 === 1){
-        seconds = 0;
-        minutes++;
+  //Logic to determine when to increment next value
+  if (seconds / 60 === 1) {
+    seconds = 0;
+    minutes++;
 
-        // if(minutes / 60 === 1){
-        //     minutes = 0;
-        //     hours++;
-        // }
-
-    }
-    if(seconds < 10){
-        displaySeconds = "0" + seconds.toString();
-    }
-    else{
-        displaySeconds = seconds;
-    }
-
-    if(minutes < 10){
-        displayMinutes = "0" + minutes.toString();
-    }
-    else{
-        displayMinutes = minutes;
-    }
-
-    // if(hours < 10){
-    //     displayHours = "0" + hours.toString();
-    // }
-    // else{
-    //     displayHours = hours;
+    // if(minutes / 60 === 1){
+    //     minutes = 0;
+    //     hours++;
     // }
 
-    //Display updated time values to user
-    document.getElementById("display").innerHTML =  displayMinutes + ":" + displaySeconds;
+  }
+  if (seconds < 10) {
+    displaySeconds = "0" + seconds.toString();
+  }
+  else {
+    displaySeconds = seconds;
+  }
+
+  if (minutes < 10) {
+    displayMinutes = "0" + minutes.toString();
+  }
+  else {
+    displayMinutes = minutes;
+  }
+
+  // if(hours < 10){
+  //     displayHours = "0" + hours.toString();
+  // }
+  // else{
+  //     displayHours = hours;
+  // }
+
+  //Display updated time values to user
+  document.getElementById("display").innerHTML = displayMinutes + ":" + displaySeconds;
 
 }
 
-function startStop(){
+function startStop() {
   if (!mazeCompleted) return;
-    if(status === "stopped"){
+  if (status === "stopped") {
 
-        //Start the stopwatch (by calling the setInterval() function)
-        interval = window.setInterval(stopWatch, 1000);
-        status = "started";
+    //Start the stopwatch (by calling the setInterval() function)
+    interval = window.setInterval(stopWatch, 1000);
+    status = "started";
 
-    }
-    else{
+  }
+  else {
 
-        window.clearInterval(interval);
-        status = "stopped";
+    window.clearInterval(interval);
+    status = "stopped";
 
-    }
+  }
 
 }
 
