@@ -1,6 +1,6 @@
 # MAZECRAZE
 
-Github Link: https://briannyeo.github.io/MazeGameJS-Project-1-/
+Github Link: https://briannyeo.github.io/MazeCraze/
 ## Description
 This is a project built with HTML, CSS and JavaScript. It is a Maze Generator that uses a depth-first search algorithm and implemented using recursive backtracking ([see Wiki](https://en.wikipedia.org/wiki/Maze_generation_algorithm)). Subsequently styled with CSS.
 
