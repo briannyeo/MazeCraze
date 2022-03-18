@@ -1,4 +1,4 @@
-# MazeGameJS-Project-1-
+# MAZECRAZE
 
 Github Link: https://briannyeo.github.io/MazeGameJS-Project-1-/
 ## Description
